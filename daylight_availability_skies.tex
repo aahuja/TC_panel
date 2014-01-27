@@ -1,0 +1,394 @@
+\documentclass[times, 10pt,a4paper]{article}
+%\usepackage{latex8}
+\usepackage[labelfont={rm,bf}, textfont=rm, font=small]{caption}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{sidecap}
+\usepackage{setspace}
+\usepackage{multimedia}
+\usepackage{xcolor}
+\usepackage{tabu}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage{amsmath}
+%
+%\pagestyle{empty}
+\bibliographystyle{latex8}
+\begin{document}
+
+\title{Compuatational modeling of Translucent Concrete exposed to sunlight on a clear day}
+\author{Aashish Ahuja}
+\maketitle
+\section{Introduction}
+Construction, maintenance and, mainly, use of buildings are some of the most important causes of energy and raw materials consumption, 
+CO$_2$ emission, and waste generation [curet],[ochnor]. Innovation should facilitate minimizing these issues compelling development at the same time [mele]. In a building, openings placed on its envelope (i.e. fa\c{c}ades and roof) usually have non-structural and non-insulation properties. 
+In fact, the energy saved in a building is usually lost through these openings. Therefore, it is necessary to develop a structural element 
+capable of being used in the building envelope and leads to light permeability from the outside to the interior of the building. \\ \\In this paper, a basic research is conducted on a panel element designed considering four simultaneous requirements which are usually
+ set apart: (1) Permeability to light through the building; (2) Avoiding energy loss or gain in the building; (3) Structural performance, 
+and (4) Conforming the building envelope to construction practice.Structural performance is reached through proper design of the panel, 
+e.g. thickness and use of carbon or glass fiber reinforced concrete (RC). Permeability of light is usually in conflict with the structural 
+requirement, unless the elements are permeable to light without loss of the structural resistance. Conforming the building envelope to
+practice, from a pragmatic standpoint, means that: (a) cost is as low as possible, (b) no other elements are needed for finishing the 
+envelop, (c) the envelope is a part of the structural sub-system, (d) the construction procedure is simple and scalable, and 
+(e) movable and mechanized parts are avoided. 
+\subsection{Translucent Concrete}
+Translucent concrete (TC) panel in this study has a certain number of optical fibers (OFs), either glass orplastic core, embedded in concrete which allows light to be transmitted through the rather opaque concrete panel. In 2001, Hungarian architect Aron Losonzi invented LiTraCon$^{TM}$, the first commercially available form ofTC. It was a combination of optical fibers and fine concrete, combined in such a way that the material is bothinternally and externally homogeneous. It was manufactured in blocks and used primarily for decoration.During the Shanghai 2010 EXPO, Italy modeled its pavilion out of TC using about 4,000 blocks, 
+each measuring $100cm\times 50cm\times 5 cm$. The blocks were rather heavy to be used as a fa\c{c}ade for sub-system in buildings. 
+Another product features plastic fibers arranged in a perfect grid, namely Pixel Panels, developed by 
+Bill Price of the University of Houston. These panels transmit light in a pattern resembling thousands of tiny stars in the night sky. 
+University of Detroit-Mercy also developed a process to produce translucent panels made out of Portland cement and sand and reinforced it with a small amount ofchopped fiberglass. These panels, which are only 2.5 mm thick at their centers, are thin enough to be translucent underdirect light. The primary focus of the TC technology has previously been on its aesthetic appeal and itsapplication in artistic design. Recently, He et al. [he] published a study on smart TC which tried to capture the light emission
+properties of TC in a lab experimenatlly. This paper takes a step further and tries to computationally model light transmission
+and the subsequent heating rate of the panel when exposed to sunlight throughout the year.\\
+%
+Nowadays, sustainable development has become an unavoidable trend in every walk of society, includingcivil engineering and architecture. Therefore, development and use of sustainable materials, which are green,energy efficient, and low-cost, are gaining more interest. The building envelope defines the interiorenvironment. Thus, the energy efficiency of the envelope affects the efficiency of the entire building system.Furthermore, if the envelope can capture more daylight into the building, the electric lighting load can bereduced and further energy savings are achieved. Compared to a traditional electric lighting system, daylight ismore energy efficient and more appealing for a healthy environment and human productivity and comfort{edward}.TC panels with sunlight concentrators provide the possibility of concentrating and transmitting sunlight intothe indoor environment. In this way, the building envelope sub-system saves energy and reduces carbonfootprint by collecting and distributing sunlight without reducing its bearing capacity. 
+%
+\subsection{Radiation from Sun}
+The sun is considered to be a point source that produces collimated beam illuminance. The solar illuminance 
+constant is the solar illuminance at normal incidence to a surface at the earth's mean distance from the sun 
+(since the distance of earth from sun keeps on varying over year) at the outer reaches of the earth's atmosphere. \\
+The solar parameters are based on current standards : [ASTM06][IESNA05]
+\begin{enumerate}
+\item Solar illumination constant ($I_{sc}$) : 133.1 klx
+\item Solar irradiation constant($E_{irr}$) : $1366 \ W/m^2$ ($127.0 W/ft^2$)
+%\item Solar luminous efficacy ($K_m$) : 97.4 lm/W  
+\end{enumerate}
+Two things need to be taken into account :
+\begin{enumerate}
+\item Varying distance of earth from sun due to earth's elliptical orbit. 
+\begin{equation}
+I_{xt} = I_{sc} \Big{(} 1 + 0.034 \cos {2\pi(N - 2) \over 365} \Big{)}
+\end{equation}
+Where
+$I_{xt}$ = extraterrestrial solar illuminance in klx \\ 
+$I_{sc}$ = solar illumination constant in klx \\ 
+N = Julian date\\
+\begin{figure}[htpb]
+\centering
+\includegraphics[scale=0.55]{scabatm}
+\caption{Extraterrestrial radiation is scattered and absorbed as it traverses through the atmosphere. \emph{Illustration courtesy: 
+http://dx.doi.org/10.1016/B978-0-12-373750-2.50011-2}}
+\end{figure} 
+\item Effect of earth's atmosphere[Fig. 1]. According to Bouguer's law, the attenuation of light through amedium is proportional to the distance traversed in the medium and to thelocal flux of radiation.The direct normal illuminance at sea level, $I_{dn}$, corrected for
+atmospheric attenuation can be computed for a clear or partly cloudy sky via: [DG]
+\begin{equation}
+I_{dn} = I_{xt} e^{-cm} 
+\end{equation}
+Where: \\
+$I_{dn}$ : Direct normal solar illuminance in klx \\
+$I_{xt}$ : Extraterrestrial solar illuminance in klx \\ 
+c : Atmospheric extinction coefficient
+%; clear sky = 0.21, partly cloudy sky = 0.80 \\
+m : optical air mass (dimensionless) \\
+\end{enumerate}
+\textbf{Calcution of the optical mass($m$) and extinction coefficient($c$)}
+The equation for optical mass which is widely used by architects and engineers [PreeSh], is stated as: 
+\begin{equation*}
+m = {1 \over \cos \theta_z + 0.15\times(93.885 - \theta_z {180 \over \pi})^{-1.253}}
+\end{equation*}
+where $\theta_e$ is the zenith angle and is given in radians. \\ 
+Though a lot of empirical formulae have been used in the past to calculate the extinction coefficent
+of the atmosphere[Wong], the model here utilizes values specified by ASHRAE[ashrae] for a clear sky as given in [Table 1]
+%used by Al-Riahi et al.[Riahi] to develop a 
+%clear day model for the beam transmittance of the atmosphere based on global illuminance measured in
+%Baghdad.
+%According to his formulation, the coefficient varies only with the day of the year($N$).
+%\begin{equation}
+%\footnotesize{
+%\begin{split}
+%c \Rightarrow &c(N) = 0.3917397 - 5.596 \times 10^{-2} \sin({2\pi \over 365}N) + 5.293\times 10^{-3} \\
+%&\cos({2\pi \over 365}N) + 1.3594\times 10^{-2}\sin({4\pi \over 365}N) + 4.0383\times10^{-3} 
+%\cos({4\pi \over 365}N)
+%\end{split}
+%}
+%\end{equation}
+Since in this paper, we will be defining the ratio of the amount of broadband light transmitted through the panel 
+to the amount of external solar illumination avaiable, the value of $I_{xt}$ is taken to be 1.0\\ \\
+\textbf{Contribution due to sky-illuminance for a clear sky} \\ 
+%The horizontal illuminance produced by the sky is expressed as a function of solar altitiude for a clear sky with constants
+%$A$, $B$ and $C$. The equation for horizontal illuminance is given by[gillette]:
+The clear sky luminance has the form as described by Kittler[kittler] :
+%\begin{equation}
+%I_{kh} = A + B\sin^{C}a_t
+%\end{equation}
+%Where for a clear sky:\\
+%$I_{kh}$ = horizontal illuminance due to unobstructed skylight in klx \\
+%$A$ = sunrise/sunset illuminance in klx (A = 0.8) \\
+%$B$ = solar altitude illuminance coefficient in klx (B = 15.5) \\
+%$C$ = solar altitude illuminance exponent (C = 0.5) \\
+%$a_t$ = solar altitude in radians \\
+%The paper uses a standard clear sky illuminance distribution function introduced by Kittler[kittler] :
+\begin{equation}
+L_k(\zeta,\alpha) = L_{kh}{(0.91 + 10e^{-3\gamma} + 0.45\cos^2\gamma)(1-e^{-0.32/\sin\gamma}) \over (0.91 + 10e^{-3Z_o} + 0.45\cos^2Z_o)
+(1-e^{-0.32})}
+\end{equation}
+For the equation above, the terms are defined as:\\
+$L_{k}$($\zeta$,$\alpha$) = diffuse sky-luminance(in $kcd/m^2$) at point, p, with coordinates, $\zeta$ and $\alpha$ \\
+$L_{kh}$ = sky zenith luminance which is a constant value, $kcd/m^2$ \\
+$\gamma$  = angle between the sun and sky point, p, in radians \\
+$\zeta$ = zenith angle of point p in radians\\
+$\alpha$ = azimuth angle from the sun in radians\\
+$Z_o$ = zenithal sun angle in radians\\ \\
+The angle, $\gamma$, between the sun and sky point, p, is given by\\
+\begin{equation}
+\gamma = cos^{-1}(\cos Z_o\cos \zeta + \sin Z_o\sin\zeta\cos\alpha)
+\end{equation} 
+and angle $Z_o$ is given by:
+\begin{equation}
+Z_o = {\pi \over 2} - a_t
+\end{equation}
+In the calculation of daylight factor for the panel, the zenith luminance, $L_z$ cancels out. For this reason, the value of
+$L_z$ is equal to 1.0 for all calculations. \\ \\
+\textbf{Global Radiation for a clear sky} \\
+%Al-Riahi et al.[Riahi] also explain a way to calculate the diffuse irradiance with the assumption that it is constant 
+%throughout a particular sky day. This method aids one to get an estimate of diffuse radiation in the event the information
+%is not available for a particular location. It is described as :
+%\begin{equation}
+%\footnotesize{
+%E_{diffr} = {E_{dr} \over \cos\theta_z } \Big{(}0.0936+0.041\sin\Big{[}{(N-104.5)\pi \over 167} \Big{]} + 0.004773
+%\Big{(}0.0936+0.041\sin\Big{[}{(N+24.4)\pi \over 83.5} \Big{]} \Big{)}
+%}
+%\end{equation}
+%where $\theta_z$ and $N$ are the same as used before. \\ \\
+According to ASHRAE model for a clear sky[ashrae], the diffuse solar radiation on a horizontal surface is given by:
+\begin{equation}
+E_{diffr} = \beta E_{dr}
+\end{equation}
+where \\ 
+$E_{diffr}$ is the amount of horizontal diffused radiation($W/m^2$) \\
+$\beta$ is the diffuse radiation factor; Values are given in [Table 1] \\
+%
+\begin{table}[t]
+\begin{center}
+\caption{The constant parameters $c$ \& $\beta$ of the ASHRAE model for clear skydays on the twenty-first day of each month}
+\begin{tabular}{ | l | l | l | p{5cm} |}
+\hline
+Month & \ \ \ $c$ & \ \ \ $\beta$ \\ \hline
+Jan & 0.142 & 0.058 \\ \hline
+Feb & 0.144 & 0.060 \\ \hline
+Mar & 0.156 & 0.071 \\ \hline
+Apr & 0.180 & 0.097 \\ \hline
+May & 0.196 & 0.121 \\ \hline
+Jun & 0.205 & 0.134 \\ \hline
+Jul & 0.207 & 0.136 \\ \hline
+Aug & 0.201 & 0.122 \\ \hline
+Sep & 0.177 & 0.092 \\ \hline
+Oct & 0.160 & 0.073 \\ \hline
+Nov & 0.149 & 0.063 \\ \hline
+Dec & 0.142 & 0.057 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+%
+%
+Direct radiation $E_{dr}$, is calculated from Eq. [1] and Eq. [2] by replacing $I_{sc}$ with $E_{irr}$ while using the 
+previously calculated parameters, $c$ and $m$.
+The quantity of total (also called "broadband") direct and diffuse radiation is important for calculations ofheating of the building during the day and also in the design of flat-plate collectors, etc.[insora]. The total global irradiance 
+in the normal direction is, thus, written as :
+\begin{equation}
+E_{tot} = E_{dr} + E_{diffr} 
+\end{equation}
+%
+\section{Theory and Modeling}
+\subsection{Modeling Translucent Concrete}
+The 3-D profile of an optical fiber embedded within the concrete block is represented as an ellipsoid. The surface is represented
+as a continuous function given as:
+\begin{equation} 
+%\begin{split}
+F(x,y,z) = \Bigg(\Bigg(\frac{x}{a_1}\Bigg)^{\frac{2}{\epsilon_2}} +  \Bigg(\frac{y}{a_2}\Bigg)^{\frac{2}{\epsilon_2}} \Bigg)^{\frac{\epsilon_2}{\epsilon_1}} 
++ \Bigg(\frac{z}{a_3}\Bigg)^{\frac{2}{\epsilon_1}} -1 = 0
+%\end{split}
+\end{equation}
+%and, the coordinates of points $\emph{(x, y, z)}$ are:
+%\begin{equation} 
+%\Bigg(\frac{x}{a_1}\Bigg)^2 = \cos^{2\epsilon_1}{\eta}\cos^{2\epsilon_2}{\omega}
+%\end{equation}
+%\begin{equation} 
+%\Bigg(\frac{y}{a_2}\Bigg)^2 = \cos^{2\epsilon_1}{\eta}\sin^{2\epsilon_2}{\omega}
+%\end{equation}
+%\begin{equation} 
+%\Bigg(\frac{z}{a_3}\Bigg)^2 = \sin^{2\epsilon_1}{\eta}
+%\end{equation}
+In the above equation, ${\epsilon_1, \epsilon_2}$ control the shape of the ellipsoid and 
+${a_1, a_2, a_3}$ give the maximum dimensions of the cylinder along the axes. 
+The normal to the surface can be calculated by computing the gradient, $\nabla F$ and
+will be useful for ray tracing.\\ \\
+%
+For simulation purposes, we model a concrete cube block with an edge length of 0.3m. A total of 49 fibers\textcolor{red}{(dia = 0.02032m)} are arranged within 
+the block in a regular grid-like pattern. Approximately, \textcolor{red}{\textbf{5\%}} of the top surface area is covered by optical fibers. 
+\subsection{Light transmisison through optical fibers}
+The translucent concrete has the distinct advantage of channelizing light through it due to the presence of optical fibers that
+run parallel to the edges of the concrete block. A light traversing through an optical fiber will undergo three noticeable light 
+phenomena: Reflection and Refraction on its top surface and Total Internal Reflection along the inside walls of the fiber. 
+The amount of light reflected into the incident medium is given by(see [zohdi],[gross] for details) : 
+\begin{equation}
+R = \frac{1}{2}\Bigg(\Bigg(\frac{\frac{\hat{n}^2}{\hat\mu} \cos \theta_i  - (\hat{n}^2 - \sin^2\theta_i)^{\frac{1}{2}}}{\frac{\hat{n}^2}{\hat\mu} \cos \theta_i  + (\hat{n}^2 - \sin^2\theta_i)^{\frac{1}{2}}}\Bigg)^2 + 
+ \Bigg(\frac{\cos \theta_i  - \frac{1}{\hat\mu} (\hat{n}^2 - \sin^2\theta_i)^{\frac{1}{2}}}{\cos \theta_i  + \frac{1}{\hat\mu}(\hat{n}^2 - \sin^2\theta_i)^{\frac{1}{2}}}\Bigg)^2 \Bigg)
+\end{equation}
+where $0\le R \le 1$ for angle of incidence $\theta_i$, $\hat\mu = {\mu_t \over \mu_i} = 1$(for non-magnetic mediums) and $\hat n = {n_t \over n_i}$ (ratio of the refractive
+indices for transmission and incident media)\footnote[1]{Refractive index is defined as the ratio of the speed of light in a vacuum($c$) to that of 
+a medium($v$), where $c$ = $1/\sqrt{\epsilon_o\mu_o}$ = $2.99792458 \times 10^8 \pm 1.1$m/s}. 
+%The ratio, $\hat n = 1.49$ is the average refractive index for an optical fiber which will be utilized in simulating the system. 
+The light that is refracted into the 
+optical fibers may or may not undergo total internal reflection depending on the following condition:
+\begin{equation}
+n_{fiber} \sin\theta_i > n_{cladding}
+\end{equation}
+Light rays that do not satisfy the above condition are dissipated as heat within the fiber.
+%
+\subsection{Estimation of Transmission Losses in an optical fiber}
+An optical fiber comprises of a plastic core made up of PMMA (Poly-Methyl MethAcrylate) protected by a cladding of small thickness. The cladding has a
+refractive index which is less than that of the core; a requirement necessary to initiate Total Internal Reflection. The core has an average refractive index
+of 1.49 with a numerical aperture of 0.50\footnote[2]{The reader can calculate the index of refraction for the cladding using the formula $ N.A. \ = \ \sqrt{n_{core}^2 - n_{cladding}^2}$}.  \\
+As the light travels through the core of fibers, its is suffers two types of losses[kato, zubia]: 
+\begin{enumerate}
+\item{Due to fluctuation in the density and compsition of material (Rayleigh Scattering). 
+For PMMA, the loss factor is, $\alpha_R = 13 \times \Big({633 \over \lambda}\Big)^4$}
+\item{ Due to electronic transitions within a polymer between the excited and the ground state of the material (Urbach's rule). This is given as:
+$\alpha_e = 1.58 \times 10^{-12}\exp({{1.15 \times 10^4} \over \lambda})$} 
+\end{enumerate}
+The factors depend on the wavelength of light(expressed in nm), which is integrated over the spectrum to compare the
+amount of light transmitted in lossy conditions to the light that will be transmitted in lossless circumstances.
+%To calculate that, we consider the amount of extraterrestrial light energy emitted by a blackbody like Sun. 
+The transmittance of a PMMA fiber having length, L is given as:
+\begin{equation}
+T(L) = \int_{\lambda_1}^{\lambda_2} E_o(\lambda)\exp(-(\alpha_R  + \alpha_e)L)d\lambda/
+\int_{\lambda_1}^{\lambda_2} E_o(\lambda)d\lambda
+\end{equation}
+where the solar spectral distribution is given as $E_o(\lambda)d\lambda = {C_1 \over {\lambda^5 [\exp(C_2/\lambda) - 1]}} d\lambda$ 
+\subsection{Geometrical Ray Tracing}
+Ray tracing produces rapid approximate solutions to wave-equations for high frequency \\/small-wavelength applications. Essentially,
+ray tracing methods begin by representing wavefronts as an array of discrete rays. Geometrically, one then proceeds, by tracking each ray 
+as it changes trajectories, in case it encounters a surface(and at that point Fresnel conditions are applied). Ray-tracing methods, in general, 
+are well suited for the computation of scattering in complex systems that are difficult to mesh/discretize. 
+Since the length scale of the surface features are large enough, relative to the optical wavelength of visible light ($\it 3.8\times 10^{-7}m 
+\le \lambda \le 7.8\times 10^{-7}m.$), the reflections are specular(coherent), thus allowing ray tracing theory to be employed.\\
+%
+\fbox{
+\parbox{\linewidth}{
+\begin{center}
+\textbf{Steps to perform Ray Tracing}
+\end{center}
+\hrule 
+\begin{enumerate}
+\item{Start with N light rays postitioned just above the panel. At any time, we track the travel of N photons contained within N rays }
+\item{Advance by one time step}
+%\begin{enumerate}
+%\item{Eliminate those rays which do not enter the winston cone in one time step}
+%\item{Check for rays that are present outside the cones but pass through it in that stipulated step. Such rays are introduced  
+%inside the cone and undergo reflection}
+%\item{Check for rays that are present within the cone but enter from outside in one time step. Such rays need to be eliminated.}
+%\end{enumerate}
+\item{If a ray encounters a surface}
+\begin{enumerate}
+\item{Compute surface normal at contact/surface - intersection point:}
+\begin{enumerate}
+\item{For a surface $\Phi(x_1,x_2,x_3) = 0$ compute intersection}
+\item{Compute normal $n = \frac{\nabla\Phi(x_1,x_2,x_3)}{\|\nabla\Phi(x_1,x_2,x_3)\|}$}
+\item{Compute reflected ray/refracted ray with respect to the normal (in plane)}
+\item{Compute angle change for the outgoing ray}
+\end{enumerate}
+\end{enumerate}
+\item{Increment all ray front positions : \\
+$r_i(t + \Delta t)  = r_i(t) + \Delta t v_i(t), \: i = 1, ..., Rays$}
+\end{enumerate}
+}
+}
+%
+\subsection{Heat Absorption and Reflectivity of Translucent Concrete}
+Total sunlight(diffuse and direct irradiation) will contribute to the net heating of the translucent concrete panel. To calculate the amount of
+heat absorbed by the panel, we apply the energy balance equation assuming that all the incident energy is converted into heat, while 
+ignoring conduction and convection. Thus,
+\begin{equation}
+m_{panel}C_{panel}{dT \over dt} = I^{absorbed}A
+\end{equation}
+where $m_{panel}$ is the mass of the TC block, $C_{panel}$ is the heat capacity of the panel, $A$ is the total incident area for sunlight, and 
+$I^{absorbed}$ constitutes the heat absorbed$(W/m^2)$ from both direct normal and diffused irradiation. \\
+A detailed inspection into the different components of global irradiation that heats up the panel gives:\\
+\begin{equation}
+\begin{split}
+I^{absorbed}A = (I^{absorbed}_{concrete}A_{concrete} + I^{absorbed}_{fiber}A_{fiber}\chi_1)_{direct} \\
++ (I^{absorbed}_{concrete}A_{concrete} + I^{absorbed}_{fiber}A_{fiber}\chi_2)_{diffused}
+\end{split}
+\end{equation}
+The terms on the right hand side of the above equation represent:
+\begin{itemize}
+\item $I^{absorbed}_{concrete}$ : Defined as the irradiation absorbed on the surface of concrete. It can be rewritten as $(1-R_{concrete})I_{concrete}$, where 
+$R_{concrete}$ is the reflectance of concrete and $I_{concrete}$ is the total irradiance (direct/diffused, calculated from Eq. [2] \& [7], respectively) 
+incident on its surface.
+\item $A_{concrete}$ : The surface area of TC panel that is made up of concrete.
+\item $I^{absorbed}_{fiber}$ : Similar to $I^{absorbed}_{concrete}$, it gives the amount of light being absorbed by optical fibers(in $W/m^2$). The reflectance,
+$R_{fiber}$ is calculated using Eq. 10. 
+\item $A_{fiber}$ = $(A - A_{concrete})$ : Surface area of TC that is made up of optical fibers.
+\item $\chi_1$  \& $\chi_2$: The percentage of absorbed incident light that contributes to heating up of optical fibers and TC panel. The rest of the absorbed light would
+simply be transmitted through the fiber. $\chi_1$ is used with direct normal light; $\chi_2$ is used with diffused light.
+\end{itemize}
+A table of reflectance values for different kinds of concrete based on its color, composition, etc can be found here[conctypes]. For our simulation, we
+use $R_{concrete} = 0.64$, which has been set by LEED-NC as a requirement for the concrete to be LEED certified\footnote[3]
+{Leadership in Energy and Environmental Design (LEED) is a set of rating systems for the design, construction, operation, and maintenance of green buildings, 
+homes and neighborhoods.}.\\
+Analyzing the left hand side of the equation, we get:\\
+\begin{equation}
+mC \approx \Big{(}(\rho C)_{concrete}{A_{concrete} \over A} + (\rho C)_{fiber}{A_{fiber} \over A}\Big{)}V
+\end{equation}
+where $V$ is the volume of the wall and $\rho$ is the density. Solving for ${dT \over dt}$:
+\begin{equation}
+{dT \over dt} = {I^{absorbed}A \over {\Big{(}(\rho C)_{concrete}{A_{concrete} \over A} + (\rho C)_{fiber}{A_{fiber} \over A}\Big{)}}V}
+\end{equation}
+The dimensions of the wall are $L\times W\times t = 0.3m\times 0.3m \times \textbf{H}$\\
+Normalized effective heating rate is calculated as :
+\begin{equation}
+H^* = {(dT/dt)(v_2) \over (dT/dt)(v_2 = 0)}
+\end{equation}
+where $v_2$ is simply $A_{fiber}/A_{concrete}$
+%
+\section{Results and Discussion}
+%
+\begin{thebibliography}{4}
+\footnotesize \bibliography{latex8}
+\bibitem{curet} Curet, S. and Moraga, J.L., Climate Change Regulation Energy Efficiency in Buildings in Europe, 
+Public-Private Sector Research Center, IESE Business School, 2011
+\bibitem{ochnor} Ochsendorf, J., Norford, L.K., Brown, D., Durschlag, H., Hsu, S.L., Love, A., Santero, N., Swei, 
+O., Webb, A., and Wildnauer, M., Methods, Impacts, and Opportunities in the Concrete Building Life Cycle, 
+Research Report R11-01, Department of Civil and Environmental Engineering, Concrete Sustainability Hub, Massachusetts Institute of Technology, 2011.
+\bibitem{mele} Mel\`{e}, D., Business ethics in action. Seeking Human Excellence in Organizations, Palgrave Macmillan, 2009.
+\bibitem{he} He, J., Zhou, Z., Ou, J., \& Huang, M. (2011). Study on Smart Transparent Concrete Product and Its Performances. 
+In The 6th International Workshop on Advanced Smart Materials and Smart Structures Technology ANCRiSST2011.
+\bibitem{edwards} Edwards, L., \& Torcellini, P. A. (2002). A literature review of the effects of natural light on building occupants. 
+Golden, CO: National Renewable Energy Laboratory. 
+\bibitem{ASTM06} American Society for Testing and Materials. 2006. Standard Solar Constant and 
+Zero Air Mass Solar Spectral Irradiance Tables. ASTM E490-00a (Reapproved 2006). West 
+Conshohocken, ASTM.
+\bibitem{IESNA05} IESNA, 2005. Nomenclature and Definitions for Illuminating Engineering, ANSI/IES,
+RP-16-2005, New York : IESNA.
+\bibitem{DG} Stephenson, D. G. (1965). Equations for solar heat gain through windows. Solar Energy, 9(2), 81-86.
+\bibitem{PreeSh} Preetham, A. J., et al. (1999). A practical analytic model for daylight. Proceedings of the 26th 
+annual conference on Computer graphics and interactive techniques, ACM Press/Addison-Wesley Publishing Co.: 91-100.
+\bibitem{Wong}Wong, L. T., \& Chow, W. K. (2001). Solar radiation model. Applied Energy, 69(3), 191-224.
+\bibitem{ashrae} ASHRAE, A. H. (1985). Fundamentals, Chapter 27. American Society of Heating, Refrigerating and Air-Conditioning Engineers, Inc., Atlanta, Georgia.
+%\bibitem{Riahi} Al-Riahi, M., Al-Jumaily, K. J., \& Ali, H. Z. (1998). Modeling clear weather day solar irradiance in 
+%Baghdad, Iraq. Energy conversion and management, 39(12), 1289-1294.
+\bibitem{insora} Iqbal, M. (1983). Chapter 6 - Solar spectral radiation under cloudless skies. 
+An Introduction to Solar Radiation. M. Iqbal, Academic Press: 107-168.
+\bibitem{gillette} Gillette, G., Pierpoint, W., \& Treado, S. (1984). A general illuminance model for daylight availability.
+ Journal of the Illuminating Engineering Society, 13(4), 330-340.
+\bibitem{kittler} Kittler, R. (1967). Standardisation of outdoor conditions for the calculation of daylight factor with 
+clear skies. In Conference sunlight in buildings, Rotterdam (pp. 273-286).
+\bibitem{zohdi} Zohdi, T. I. (2012). Modeling and simulation of the optical response rod-functionalized reflective
+ surfaces. Computational Mechanics, 50(2), 257-268.
+\bibitem{gross} Gross, Herbert, ed. Handbook of optical systems. Wiley-VCh, 2005.
+%\bibitem{cie} Meeus, J. (1982). Astronomical formulae for calculators. Richmond, Va., USA: 
+%Willmann-Bell, c1982. 2nd ed., enl. and rev., 1.
+\bibitem{kato} Kato, D., \& Nakamura, T. (1976). Application of optical fibers to the transmission of solar radiation. 
+Journal of Applied Physics, 47(10), 4528-4531.
+\bibitem{zubia} Zubia, J., \& Arrue, J. (2001). Plastic optical fibers: An introduction to their technological processes
+ and applications. Optical Fiber Technology, 7(2), 101-140.
+\bibitem{conctypes} MArceAu, M. L., \& VanGeem, M. G. (2008). Solar Reflectance Values for Concrete. Concrete 
+international, 30(08), 52-58.
+
+\end{thebibliography}
+\end{document}
