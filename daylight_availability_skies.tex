@@ -198,10 +198,8 @@ E_{tot} = E_{dr} + E_{diffr}
 The 3-D profile of an optical fiber embedded within the concrete block is represented as an ellipsoid. The surface is represented
 as a continuous function given as:
 \begin{equation} 
-%\begin{split}
 F(x,y,z) = \Bigg(\Bigg(\frac{x}{a_1}\Bigg)^{\frac{2}{\epsilon_2}} +  \Bigg(\frac{y}{a_2}\Bigg)^{\frac{2}{\epsilon_2}} \Bigg)^{\frac{\epsilon_2}{\epsilon_1}} 
 + \Bigg(\frac{z}{a_3}\Bigg)^{\frac{2}{\epsilon_1}} -1 = 0
-%\end{split}
 \end{equation}
 %and, the coordinates of points $\emph{(x, y, z)}$ are:
 %\begin{equation} 
@@ -277,12 +275,6 @@ Since the length scale of the surface features are large enough, relative to the
 \begin{enumerate}
 \item{Start with N light rays postitioned just above the panel. At any time, we track the travel of N photons contained within N rays }
 \item{Advance by one time step}
-%\begin{enumerate}
-%\item{Eliminate those rays which do not enter the winston cone in one time step}
-%\item{Check for rays that are present outside the cones but pass through it in that stipulated step. Such rays are introduced  
-%inside the cone and undergo reflection}
-%\item{Check for rays that are present within the cone but enter from outside in one time step. Such rays need to be eliminated.}
-%\end{enumerate}
 \item{If a ray encounters a surface}
 \begin{enumerate}
 \item{Compute surface normal at contact/surface - intersection point:}
@@ -389,6 +381,5 @@ Journal of Applied Physics, 47(10), 4528-4531.
  and applications. Optical Fiber Technology, 7(2), 101-140.
 \bibitem{conctypes} MArceAu, M. L., \& VanGeem, M. G. (2008). Solar Reflectance Values for Concrete. Concrete 
 international, 30(08), 52-58.
-
 \end{thebibliography}
 \end{document}
